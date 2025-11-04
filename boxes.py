@@ -12,14 +12,14 @@ import math
 
 # Get the inputs from the user for the manufactured items and items packed per box and store as an int
 
-manItems = int(input("Please, enter the number of manufactured items: "))
+man_items = int(input("Please, enter the number of manufactured items: "))
 
-itemBox = int(input("Please, enter the number of item per box: "))
+item_box = int(input("Please, enter the number of item per box: "))
 
 # compute the solution by dividing the manufactured items by the number of items 
 # packed per box to get how many boxes needed with math.ceil()method
 
-numBox = math.ceil(manItems / itemBox)
+num_box = math.ceil(man_items / item_box)
 
 # print the total number of boxes needed
 
@@ -29,4 +29,4 @@ print("___________***__________")
 
 print()
 
-print(f"for {manItems} items, packing {itemBox} per box, you'll need {numBox} boxes.")
+print(f"for {man_items} items, packing {item_box} per box, you'll need {num_box} boxes.")

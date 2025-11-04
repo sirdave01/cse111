@@ -38,13 +38,13 @@ age = int(response)
 # calculate the heart rate by subtracting the person's age by 20 
 # and multiplying by the rate of 65% - 85%
 
-hRate = 220 - age
+h_rate = 220 - age
 
-slowRate = hRate * 0.65
+slow_rate = h_rate * 0.65
 
-fastRate = hRate * 0.85
+fast_rate = h_rate * 0.85
 
 # using the f string to print the result on the terminal for the user to see
 
 print ("When you exercise to strengthen your heart,")
-print(f"you should keep your heart rate between {slowRate} and {fastRate} beats per minute.")
+print(f"you should keep your heart rate between {slow_rate} and {fast_rate} beats per minute.")
