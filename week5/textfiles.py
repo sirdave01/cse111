@@ -142,7 +142,7 @@ if __name__ == "__main__":
     main()
 
 
-# Example 5 - reading a csv into a dictionary
+# Example 5 - reading a csv into a compound dictionary
 import csv
 def main():
     # Index of the phone number column
