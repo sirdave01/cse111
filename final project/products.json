@@ -1,0 +1,38 @@
+{
+  "8888888888888": {
+    "name": "Coca Cola 500ml",
+    "price": 1.99,
+    "type": "piece"
+  },
+  "1234567890123": {
+    "name": "Lays Chips",
+    "price": 3.49,
+    "type": "piece"
+  },
+  "9999999999999": {
+    "name": "Red Bull 250ml",
+    "price": 2.99,
+    "type": "piece"
+  },
+  "8888888888001": {
+    "name": "Coca Cola 500ml",
+    "price": 42.0,
+    "type": "carton",
+    "qty": 24,
+    "piece_barcode": "8888888888888"
+  },
+  "1234567890001": {
+    "name": "Lays Chips",
+    "price": 75.0,
+    "type": "carton",
+    "qty": 24,
+    "piece_barcode": "1234567890123"
+  },
+  "9999999999001": {
+    "name": "Red Bull 250ml",
+    "price": 65.0,
+    "type": "carton",
+    "qty": 24,
+    "piece_barcode": "9999999999999"
+  }
+}
