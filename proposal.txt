@@ -1,0 +1,36 @@
+
+Programmer/Developer: Osigwe Uchechukwu David Caleb
+
+Project Title: QuickBank – Supermarket Point of Sale (POS) System
+
+Description:
+I will create a complete supermarket checkout system called "QuickBank" that allows a cashier to scan or enter products, 
+track a customer's order in real time, apply discounts (including buy-one-get-one-half-off), 
+calculate tax, accept payment, give change, print a receipt, and log all sales for end-of-day reporting.
+
+Real-World Use:
+This program directly solves the problem my uncle (and thousands of small store owners) face: 
+moving from paper receipts to a fast, reliable digital checkout system. 
+It can be used in real grocery stores, convenience shops, or markets.
+
+Core Functions (each will do one thing):
+- load_products(filename) → dict
+- add_to_cart(cart, product_id, quantity)
+- apply_bogo_discount(cart, product_id)
+- calculate_subtotal(cart)
+- calculate_tax(subtotal, rate=0.06)
+- calculate_change(payment, total)
+- print_receipt(cart, subtotal, tax, total, change)
+- log_transaction(transaction_data)
+- generate_daily_report()
+
+Testable Functions (I will write pytest tests for at least these):
+- test_calculate_subtotal()
+- test_apply_bogo_discount()
+- test_calculate_tax()
+- test_calculate_change()
+
+Estimated Time: 20–30 hours
+Why This Project:
+It combines file I/O, dictionaries, loops, functions, error handling, algorithms (discount logic), 
+and real-world applicability — everything we've learned in CSE 111, applied at a professional level.
