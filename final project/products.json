@@ -14,6 +14,27 @@
     "price": 2.99,
     "type": "piece"
   },
+  "8888888888895": {
+    "name": "Coca Cola 500ml",
+    "price": 42.0,
+    "carton_price": null,
+    "stock_type": "carton",
+    "carton_of": "8888888888888"
+  },
+  "1234567890130": {
+    "name": "Lays Chips Classic",
+    "price": 75.0,
+    "carton_price": null,
+    "stock_type": "carton",
+    "carton_of": "1234567890123"
+  },
+  "9999999999905": {
+    "name": "Red Bull 250ml",
+    "price": 65.0,
+    "carton_price": null,
+    "stock_type": "carton",
+    "carton_of": "9999999999999"
+  },
   "8888888888001": {
     "name": "Coca Cola 500ml",
     "price": 42.0,
@@ -34,5 +55,11 @@
     "type": "carton",
     "qty": 24,
     "piece_barcode": "9999999999999"
+  },
+  "88556876542437": {
+    "name": "custard",
+    "price": 12.0,
+    "carton_price": 2400.0,
+    "stock_type": "piece"
   }
 }

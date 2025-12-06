@@ -1,12 +1,10 @@
-"""
-App: quickbank program
-
-Developer: Osigwe Uchechukwu Davidcaleb
-
-"""
+__author__ = "Osigwe Uchechukwu Davidcaleb"
+__version__ = "5.0"
+__status__ = "Production Ready"
 
 
 import tkinter as tk
+from tkinter.simpledialog import askstring, askfloat
 from tkinter import messagebox
 import json
 from datetime import datetime
@@ -63,47 +61,41 @@ class QuickBankPro:
             json.dump(self.products_db, f, indent=2, ensure_ascii=False)
 
     def setup_ui(self):
-        # MAIN CONTAINER WITH SCROLLBAR
-        main_canvas = tk.Canvas(self.root, bg="#0a0a0a", highlightthickness=0)
-        scrollbar = tk.Scrollbar(self.root, orient="vertical", command=main_canvas.yview, width=20)
-        scrollable_frame = tk.Frame(main_canvas, bg="#0a0a0a")
 
-        scrollable_frame.bind(
-            "<Configure>",
-            lambda e: main_canvas.configure(scrollregion=main_canvas.bbox("all"))
-        )
+        # MAIN CANVAS + SCROLLBAR
+        canvas = tk.Canvas(self.root, bg="#0a0a0a", highlightthickness=0)
+        scrollbar = tk.Scrollbar(self.root, orient="vertical", command=canvas.yview, width=20)
+        scrollable = tk.Frame(canvas, bg="#0a0a0a")
 
-        main_canvas.create_window((0, 0), window=scrollable_frame, anchor="nw")
-        main_canvas.configure(yscrollcommand=scrollbar.set)
+        scrollable.bind("<Configure>", lambda e: canvas.configure(scrollregion=canvas.bbox("all")))
+        canvas.create_window((0, 0), window=scrollable, anchor="nw")
+        canvas.configure(yscrollcommand=scrollbar.set)
 
-        # Pack canvas and scrollbar
-        main_canvas.pack(side="left", fill="both", expand=True)
+        canvas.pack(side="left", fill="both", expand=True)
         scrollbar.pack(side="right", fill="y")
 
-        # Now put everything inside scrollable_frame instead of self.root
-
         # HEADER
-        header = tk.Frame(scrollable_frame, bg="#00ff00", height=80)
+        header = tk.Frame(scrollable, bg="#00ff00", height=80)
         header.pack(fill="x")
         header.pack_propagate(False)
-        tk.Label(header, text="QUICKBANK PRO", font=("Helvetica", 36, "bold"), fg="black", bg="#00ff00").pack(side="left", padx=20)
-        tk.Label(header, text="F4 = CASH • F8 = CARD • ESC = CLEAR", font=("Arial", 16, "bold"), fg="black", bg="#00ff00").pack(side="right", padx=20)
+        tk.Label(header, text="QUICKBANK PRO", font=("Helvetica", 36, "bold"), fg="black", bg="#00ff00").pack(side="left", padx=30)
+        tk.Label(header, text="F4 = CASH • F8 = CARD • ESC = CLEAR", font=("Arial", 16, "bold"), fg="black", bg="#00ff00").pack(side="right", padx=30)
 
         # CUSTOMER
-        cust_frame = tk.Frame(scrollable_frame, bg="#0a0a0a")
-        cust_frame.pack(pady=8)
-        tk.Label(cust_frame, text="Customer:", fg="#ffd700", bg="#0a0a0a", font=("Arial", 16)).pack(side="left", padx=15)
-        self.cust_entry = tk.Entry(cust_frame, width=35, font=("Arial", 16), bg="#222", fg="white", insertbackground="white")
-        self.cust_entry.pack(side="left", padx=10)
+        cust_frame = tk.Frame(scrollable, bg="#0a0a0a")
+        cust_frame.pack(pady=12, fill="x", padx=30)
+        tk.Label(cust_frame, text="Customer:", fg="#ffd700", bg="#0a0a0a", font=("Arial", 16)).pack(side="left")
+        self.cust_entry = tk.Entry(cust_frame, width=40, font=("Arial", 16), bg="#222", fg="white", insertbackground="white")
+        self.cust_entry.pack(side="left", padx=20)
 
         # INPUT ROW
-        input_frame = tk.Frame(scrollable_frame, bg="#0a0a0a")
-        input_frame.pack(pady=15)
+        input_frame = tk.Frame(scrollable, bg="#0a0a0a")
+        input_frame.pack(pady=20, fill="x", padx=30)
 
         tk.Label(input_frame, text="QTY:", fg="#00ff00", font=("Arial", 22, "bold")).grid(row=0, column=0, padx=10)
         self.qty_entry = tk.Entry(input_frame, width=6, font=("Arial", 22), bg="#ffff99", justify="center")
         self.qty_entry.insert(0, "1")
-        self.qty_entry.grid(row=0, column=1, padx=8)
+        self.qty_entry.grid(row=0, column=1, padx=10)
         self.qty_entry.focus_set()
 
         # CARTON BUTTON
@@ -114,50 +106,46 @@ class QuickBankPro:
                                          command=lambda: self.carton_btn.config(
                                              text="CARTON" if self.carton_mode.get() else "PIECES",
                                              bg="#e74c3c" if self.carton_mode.get() else "#3498db"))
-        self.carton_btn.grid(row=0, column=2, padx=30)
+        self.carton_btn.grid(row=0, column=2, padx=40)
 
-        tk.Label(input_frame, text="BARCODE:", fg="black", font=("Arial", 18)).grid(row=0, column=3, padx=15)
+        tk.Label(input_frame, text="BARCODE:", fg="white", font=("Arial", 18, "bold")).grid(row=0, column=3, padx=30)
         self.item_entry = tk.Entry(input_frame, width=38, font=("Arial", 18), bg="#222", fg="white", insertbackground="white")
-        self.item_entry.grid(row=0, column=4, padx=8)
+        self.item_entry.grid(row=0, column=4, padx=10)
         tk.Button(input_frame, text="ADD", bg="#27ae60", fg="white", font=("bold", 16), width=8,
-                  command=self.add_item).grid(row=0, column=5, padx=20)
+                  command=self.add_item).grid(row=0, column=5, padx=30)
 
         self.qty_entry.bind("<Return>", lambda e: self.item_entry.focus_set())
         self.item_entry.bind("<Return>", lambda e: self.add_item())
 
-        # RECEIPT
-        receipt_frame = tk.Frame(scrollable_frame)
-        receipt_frame.pack(pady=10, padx=30, fill="both", expand=True)
+        # RECEIPT - FULLY FIXED
+        receipt_frame = tk.Frame(scrollable)
+        receipt_frame.pack(pady=15, padx=40, fill="both", expand=True)
         self.receipt_text = tk.Text(receipt_frame, font=("Courier New", 13, "bold"), bg="white", fg="black", height=18)
         receipt_scroll = tk.Scrollbar(receipt_frame, command=self.receipt_text.yview)
         self.receipt_text.config(yscrollcommand=receipt_scroll.set)
         self.receipt_text.pack(side="left", fill="both", expand=True)
         receipt_scroll.pack(side="right", fill="y")
 
-        # TOTAL DISPLAY
-        total_frame = tk.Frame(scrollable_frame, bg="#0a0a0a")
-        total_frame.pack(pady=15)
+        # TOTAL DISPLAY - FIXED
+        total_frame = tk.Frame(scrollable, bg="#0a0a0a")
+        total_frame.pack(pady=25)
         self.total_var = tk.StringVar(value="TOTAL: $0.00")
         tk.Label(total_frame, textvariable=self.total_var,
-                 font=("Arial", 39, "bold"), fg="#ff0066", bg="black",
-                 relief="raised", bd=10, padx=30, pady=10).pack()
+                 font=("Arial", 44, "bold"), fg="#ff0066", bg="black",
+                 relief="raised", bd=12, padx=50, pady=15).pack()
 
-        # BIG BUTTONS — Now always reachable!
-        btn_frame = tk.Frame(scrollable_frame, bg="#0a0a0a")
-        btn_frame.pack(pady=30, padx=20)
-        style = {"font": ("Helvetica", 26, "bold"), "width": 11, "height": 2, "bd": 10, "relief": "raised"}
+        # BIG BUTTONS
+        btn_frame = tk.Frame(scrollable, bg="#0a0a0a")
+        btn_frame.pack(pady=40)
+        style = {"font": ("Helvetica", 28, "bold"), "width": 12, "height": 2, "bd": 12, "relief": "raised"}
 
-        tk.Button(btn_frame, text="CASH\nF4", bg="#27ae60", fg="white", command=lambda: self.payment("CASH"), **style).grid(row=0, column=0, padx=50)
-        tk.Button(btn_frame, text="CARD\nF8", bg="#2980b9", fg="white", command=lambda: self.payment("CARD"), **style).grid(row=0, column=1, padx=50)
-        tk.Button(btn_frame, text="REMOVE\nLAST", bg="#e67e22", fg="white", command=self.remove_last, **style).grid(row=1, column=0, padx=50, pady=25)
-        tk.Button(btn_frame, text="CLEAR\nALL", bg="#c0392b", fg="white", command=self.clear_all, **style).grid(row=1, column=1, padx=50, pady=25)
+        tk.Button(btn_frame, text="CASH\nF4", bg="#27ae60", fg="white", command=lambda: self.payment("CASH"), **style).grid(row=0, column=0, padx=80)
+        tk.Button(btn_frame, text="CARD\nF8", bg="#2980b9", fg="white", command=lambda: self.payment("CARD"), **style).grid(row=0, column=1, padx=80)
+        tk.Button(btn_frame, text="REMOVE\nLAST", bg="#e67e22", fg="white", command=self.remove_last, **style).grid(row=1, column=0, padx=80, pady=30)
+        tk.Button(btn_frame, text="CLEAR\nALL", bg="#c0392b", fg="white", command=self.clear_all, **style).grid(row=1, column=1, padx=80, pady=30)
 
-        # Enable mouse wheel scrolling
-        def _on_mousewheel(event):
-            main_canvas.yview_scroll(int(-1*(event.delta/120)), "units")
-        main_canvas.bind_all("<MouseWheel>", _on_mousewheel)  # Windows
-        main_canvas.bind_all("<Button-4>", lambda e: main_canvas.yview_scroll(-1, "units"))  # Linux up
-        main_canvas.bind_all("<Button-5>", lambda e: main_canvas.yview_scroll(1, "units"))   # Linux down
+        # Mouse wheel
+        canvas.bind_all("<MouseWheel>", lambda e: canvas.yview_scroll(int(-1*(e.delta/120)), "units"))
 
     def add_item(self):
         code = self.item_entry.get().strip()
@@ -171,11 +159,11 @@ class QuickBankPro:
             qty = 1
 
         if code not in self.products_db:
-            name = messagebox.askstring("New Item", "Product name?")
+            name = askstring("New Item", "Product name?")
             if not name: return
-            price = messagebox.askfloat("Price", "Price per piece?", minvalue=0.01)
+            price = askfloat("Price", "Price per piece?", minvalue=0.01)
             if not price: return
-            carton = messagebox.askstring("Carton", f"Carton price for {self.carton_size} pcs? (optional)")
+            carton = askstring("Carton", f"Carton price for {self.carton_size} pcs? (optional)")
             carton_price = float(carton) if carton and carton.strip() else None
             self.products_db[code] = {
                 "name": name,
@@ -193,7 +181,7 @@ class QuickBankPro:
             # This barcode is for full carton only
             unit_price = prod["price"]  # actually carton price
             total_price = unit_price * qty
-            display_name = f"{name} (FULL CARTON ×{qty})"
+            display_name = f"{name} (FULL CARTON × {qty})"
             display_qty = qty * self.carton_size  # show pieces
             display_unit = round(unit_price / self.carton_size, 3)
         elif self.carton_mode.get() and prod.get("carton_price") is not None:
@@ -201,7 +189,7 @@ class QuickBankPro:
             carton_price = prod["carton_price"]
             unit_price = round(carton_price / self.carton_size, 3)
             total_price = carton_price * qty
-            display_name = f"{name} (CARTON ×{qty})"
+            display_name = f"{name} (CARTON × {qty})"
             display_qty = qty * self.carton_size
             display_unit = unit_price
         else:
