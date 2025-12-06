@@ -108,7 +108,7 @@ class QuickBankPro:
                                              bg="#e74c3c" if self.carton_mode.get() else "#3498db"))
         self.carton_btn.grid(row=0, column=2, padx=40)
 
-        tk.Label(input_frame, text="BARCODE:", fg="white", font=("Arial", 18, "bold")).grid(row=0, column=3, padx=30)
+        tk.Label(input_frame, text="BARCODE:", fg="black", font=("Arial", 18, "bold")).grid(row=0, column=3, padx=30)
         self.item_entry = tk.Entry(input_frame, width=38, font=("Arial", 18), bg="#222", fg="white", insertbackground="white")
         self.item_entry.grid(row=0, column=4, padx=10)
         tk.Button(input_frame, text="ADD", bg="#27ae60", fg="white", font=("bold", 16), width=8,

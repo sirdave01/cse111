@@ -61,5 +61,11 @@
     "price": 12.0,
     "carton_price": 2400.0,
     "stock_type": "piece"
+  },
+  "888853462395": {
+    "name": "silver",
+    "price": 12.0,
+    "carton_price": 2300.0,
+    "stock_type": "piece"
   }
 }
